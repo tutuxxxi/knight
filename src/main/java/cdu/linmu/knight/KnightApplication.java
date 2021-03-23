@@ -5,7 +5,7 @@ import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 
 @SpringBootApplication
-@MapperScan("cdu.linmu.knight.dao")
+@MapperScan("cdu.linmu.knight.mapper")
 public class KnightApplication {
 
     public static void main(String[] args) {

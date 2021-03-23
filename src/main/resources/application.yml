@@ -1,0 +1,44 @@
+spring:
+
+  datasource:
+    username: knight
+    password: 123456
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://39.108.233.198:3306/knight
+
+  # 文件上传配置
+  servlet:
+    multipart:
+      max-request-size: 100MB
+      max-file-size: 10MB
+
+  # redis基本配置
+  redis:
+    host: 39.108.233.198
+    port: 6379
+    jedis:
+      pool:
+        max-active: 8
+        max-wait: -1
+        max-idle: 500
+        min-idle: 0
+    lettuce:
+      shutdown-timeout: 0
+
+
+
+
+#mapper sql日志打印
+logging:
+  level:
+    cdu.linmu.knight.mapper.*: debug
+
+#解决json乱码问题
+server:
+  servlet:
+    encoding:
+      force: true
+
+
+
+
