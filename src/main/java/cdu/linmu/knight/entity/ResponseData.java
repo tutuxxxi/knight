@@ -1,5 +1,6 @@
 package cdu.linmu.knight.entity;
 
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -11,6 +12,7 @@ import lombok.ToString;
 @Data
 @NoArgsConstructor
 @ToString
+@ApiModel("请求返回内容")
 public class ResponseData {
 
     private int code;

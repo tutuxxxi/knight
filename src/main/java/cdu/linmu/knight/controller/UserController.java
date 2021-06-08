@@ -7,11 +7,17 @@ import cdu.linmu.knight.service.UserService;
 import cdu.linmu.knight.util.DataCheckUtil;
 import cdu.linmu.knight.util.SecureUtil;
 import cdu.linmu.knight.util.UploadUtil;
+import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
+import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.sun.tools.corba.se.idl.ExceptionEntry;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.redis.core.RedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.StringUtils;
@@ -34,8 +40,10 @@ import java.util.UUID;
  * @modified By：
  * @version:
  */
+@CrossOrigin
 @RestController
 @RequestMapping("/user")
+@Api("UserController")
 public class UserController {
 
 
@@ -70,7 +78,7 @@ public class UserController {
     }
 
 
-    @GetMapping("login")
+    @GetMapping("/login")
     public ResponseData login(@RequestBody User user){
         if(DataCheckUtil.loginCheck(user)){
             try{
@@ -90,8 +98,8 @@ public class UserController {
     }
 
 
-    @PostMapping("/update")
-    public ResponseData updateInfo(@RequestBody User user){
+    @PutMapping("/update")
+    public ResponseData update(@RequestBody User user){
 
         try{
             if(StringUtils.hasText(user.getId())){
@@ -125,5 +133,16 @@ public class UserController {
     }
 
 
+    @GetMapping("/get")
+    @ApiOperation("根据条件查询用户")
+    public ResponseData search(User user){
+        return new ResponseData(ResponseCode.SUCCESS, userService.query(user));
+    }
+
+    @GetMapping("/list")
+    @ApiOperation("分页查询用户")
+    public ResponseData list(@RequestParam(defaultValue = "1") Integer pageNum, @RequestParam(defaultValue = "5") Integer pageSize){
+        return new ResponseData(ResponseCode.SUCCESS, userService.page(pageNum, pageSize));
+    }
 
 }

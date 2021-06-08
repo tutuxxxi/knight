@@ -3,10 +3,8 @@ package cdu.linmu.knight.controller;
 import cdu.linmu.knight.entity.ResponseCode;
 import cdu.linmu.knight.entity.ResponseData;
 import cdu.linmu.knight.entity.User;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 /**
  * @author ：xxx_
@@ -15,7 +13,9 @@ import org.springframework.web.bind.annotation.RestController;
  * @modified By：
  * @version:
  */
+@CrossOrigin
 @RestController
+@ApiIgnore
 @RequestMapping("/test")
 public class TestController {
 

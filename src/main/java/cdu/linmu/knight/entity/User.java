@@ -2,6 +2,7 @@ package cdu.linmu.knight.entity;
 
 import com.baomidou.mybatisplus.annotation.TableField;
 import com.baomidou.mybatisplus.annotation.TableName;
+import io.swagger.annotations.ApiModel;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -20,6 +21,7 @@ import lombok.ToString;
 @NoArgsConstructor
 @ToString
 @TableName("tb_user")
+@ApiModel("用户")
 public class User {
 
     private String id;

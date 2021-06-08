@@ -67,6 +67,4 @@ public class SecureUtil {
         user.setPassword(null);
     }
 
-
-
 }
