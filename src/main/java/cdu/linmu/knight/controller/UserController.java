@@ -6,32 +6,18 @@ import cdu.linmu.knight.entity.User;
 import cdu.linmu.knight.service.UserService;
 import cdu.linmu.knight.util.DataCheckUtil;
 import cdu.linmu.knight.util.SecureUtil;
-import cdu.linmu.knight.util.UploadUtil;
-import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.JsonMappingException;
 import com.fasterxml.jackson.databind.ObjectMapper;
-import com.sun.tools.corba.se.idl.ExceptionEntry;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.context.properties.bind.DefaultValue;
 import org.springframework.data.redis.core.RedisTemplate;
-import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.util.StringUtils;
 import org.springframework.web.bind.annotation.*;
-import org.springframework.web.multipart.MultipartFile;
-import org.thymeleaf.util.DateUtils;
 
-import javax.annotation.Resource;
-import java.io.File;
-import java.io.IOException;
-import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.UUID;
 
 /**
  * @author ：xxx_
@@ -79,7 +65,7 @@ public class UserController {
 
 
     @GetMapping("/login")
-    public ResponseData login(@RequestBody User user){
+    public ResponseData login(User user){
         if(DataCheckUtil.loginCheck(user)){
             try{
                 User login = userService.login(user);
