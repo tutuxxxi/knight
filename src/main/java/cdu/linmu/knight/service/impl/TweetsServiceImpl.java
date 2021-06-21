@@ -1,10 +1,8 @@
 package cdu.linmu.knight.service.impl;
 
-import cdu.linmu.knight.entity.ResponseCode;
-import cdu.linmu.knight.entity.ResponseData;
-import cdu.linmu.knight.entity.Tweets;
-import cdu.linmu.knight.entity.User;
+import cdu.linmu.knight.entity.*;
 import cdu.linmu.knight.entity.vo.TweetsVO;
+import cdu.linmu.knight.mapper.CommentMapper;
 import cdu.linmu.knight.mapper.TweetsMapper;
 import cdu.linmu.knight.mapper.UserMapper;
 import cdu.linmu.knight.service.TweetsService;
@@ -38,6 +36,9 @@ public class TweetsServiceImpl extends ServiceImpl<TweetsMapper, Tweets> impleme
 
     @Resource
     TweetsMapper tweetsMapper;
+
+    @Resource
+    CommentMapper commentMapper;
 
 
 
@@ -75,6 +76,7 @@ public class TweetsServiceImpl extends ServiceImpl<TweetsMapper, Tweets> impleme
     public Page<TweetsVO> listTweets(int pageNum, int pageSize) {
         Page<Tweets> tweetsPage = PageUtil.startPage(pageNum, pageSize);
         QueryWrapper<Tweets> wrapper = new QueryWrapper<>();
+        wrapper.eq("status", 1);
         wrapper.orderByDesc("create_time");
         tweetsMapper.selectPage(tweetsPage, wrapper);
 
@@ -90,8 +92,8 @@ public class TweetsServiceImpl extends ServiceImpl<TweetsMapper, Tweets> impleme
             User user = userMapper.selectById(tweets.getUserId());
             SecureUtil.clearSecureInfo(user);
             tweetsVO.setUser(user);
+            tweetsVO.setComments(commentMapper.selectCount(new QueryWrapper<Comment>().eq("tweets_id", tweets.getTweetsId())));
             // TODO
-            tweetsVO.setComments(123);
             tweetsVO.setLikes(123);
 
             list.add(tweetsVO);
@@ -107,6 +109,7 @@ public class TweetsServiceImpl extends ServiceImpl<TweetsMapper, Tweets> impleme
         Page<Tweets> tweetsPage = PageUtil.startPage(pageNum, pageSize);
         QueryWrapper<Tweets> wrapper = new QueryWrapper<>();
         wrapper.eq("user_id", userId);
+        wrapper.eq("status", 1);
         wrapper.orderByDesc("create_time");
 
         return tweetsMapper.selectPage(tweetsPage, wrapper);
